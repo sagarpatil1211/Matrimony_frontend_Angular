@@ -5,6 +5,7 @@ import { LandingComponent } from './landing.component';
 
 const routes: Routes = [
   {path:"",component:LandingComponent, children:[
+    {path:"",component:BusinessplansComponent},
     {path:"businessplans",component:BusinessplansComponent}
   ]}
 ];
