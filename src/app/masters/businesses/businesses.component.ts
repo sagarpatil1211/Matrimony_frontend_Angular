@@ -101,7 +101,12 @@ export class BusinessesComponent implements OnInit {
   // save and edit
 
   submit(data: any) {
+
     if(this.id == ""){
+      if(data.logopath == ""){
+        alert("please select image");
+        return;
+      }
       this.api.post("businesses", data).subscribe((result: any) => {
         // console.log(result);
         if (result.status == "success") {
