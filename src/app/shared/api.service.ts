@@ -26,7 +26,7 @@ export class ApiService {
   }
 
 
-  delete(url:string,){
+  delete(url:string){
     return this.http.delete(this.baseurl + url)
   }
 
