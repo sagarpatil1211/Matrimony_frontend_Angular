@@ -37,7 +37,7 @@
       <!-- townid -->
       <div class="col-md-3">
         <div class="form-floating mb-3">
-          <select class="form-select" id="floatingSelect" aria-label="State" [(ngModel)]="town"
+          <select class="form-select" id="floatingSelect" aria-label="State" 
             (change)="townChanged($event)" formControlName="townid">
             <option value="1">Oregon</option>
             <option value="2">DC</option>
@@ -180,7 +180,7 @@
                 </tr>
               </thead>
 
-              <tbody>
+              <tbody *ngIf="datas">
                 <tr *ngFor="let data of datas,let i = index">
                   <td class="d-flex"><button type="button" class="btn btn-info"><i class="bi bi-pencil-square"
                         (click)="edit(data._id)"></i></button>

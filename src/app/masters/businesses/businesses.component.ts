@@ -25,6 +25,7 @@ export class BusinessesComponent implements OnInit {
     this.id = ""
     this.api.get("businesses").subscribe((result: any) => {
       // console.log(result);
+      if(result.status == "success")
       this.datas = result.data;
     })
 
