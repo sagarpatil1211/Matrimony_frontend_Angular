@@ -13,7 +13,7 @@ export class BusinessesComponent implements OnInit {
   formdata: any;
   datas: any = "";
   id = "";
-  town:any;
+  town: any;
 
   constructor(public api: ApiService) { }
 
@@ -25,8 +25,8 @@ export class BusinessesComponent implements OnInit {
     this.id = ""
     this.api.get("businesses").subscribe((result: any) => {
       // console.log(result);
-      if(result.status == "success")
-      this.datas = result.data;
+      if (result.status == "success")
+        this.datas = result.data;
     })
 
     this.formdata = new FormGroup({
@@ -63,20 +63,77 @@ export class BusinessesComponent implements OnInit {
   }
 
   //set town id
-  townChanged(event:any){
+  townChanged(event: any) {
     let ctrl = <HTMLSelectElement>(event.target)
-    console.log(ctrl.value);
+    // console.log(ctrl.value);
 
     this.formdata.patchValue({
-      townid : ctrl.value  
+      townid: ctrl.value
     })
-    
-    
-
-    
   }
 
-  edit(id:any){
+  // send email
+  sendEmail(id: any) {
+    // console.log(id);
+    //   this.api.get("businesses/" + id).subscribe((result: any) => {
+    //  console.log(result.data);
+
+    //  let object = new Object({
+    //  name : result.data.ownername,
+    //  email :result.data.email,
+    //  password : result.data.password
+    //  })
+
+    // this.api.post("sendmails",object).subscribe((result:any)=>{
+    //   console.log(result);    
+    // })
+    //  })
+
+    Swal.fire({
+      title: 'Are you sure to send Email?',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        this.api.get("businesses/" + id).subscribe((result: any) => {
+          // console.log(result.data);
+
+          let object = new Object({
+            name: result.data.ownername,
+            email: result.data.email,
+            password: result.data.password
+          })
+
+          this.api.post("sendmails", object).subscribe((result: any) => {
+            // console.log(result);
+          })
+        })
+
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 700,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        })
+
+        Toast.fire({
+          icon: 'success',
+          title: 'Email Send successfully'
+        })
+      }
+    })
+
+  }
+
+  edit(id: any) {
     // console.log(id);
     this.id = id;
     this.api.get("businesses/" + id).subscribe((result: any) => {
@@ -96,15 +153,15 @@ export class BusinessesComponent implements OnInit {
         status: result.data.status
       })
     })
-    
+
   }
 
   // save and edit
 
   submit(data: any) {
 
-    if(this.id == ""){
-      if(data.logopath == ""){
+    if (this.id == "") {
+      if (data.logopath == "") {
         alert("please select image");
         return;
       }
@@ -123,7 +180,7 @@ export class BusinessesComponent implements OnInit {
               toast.addEventListener('mouseleave', Swal.resumeTimer)
             }
           })
-          
+
           Toast.fire({
             icon: 'success',
             title: 'Add successfully'
@@ -142,23 +199,23 @@ export class BusinessesComponent implements OnInit {
               toast.addEventListener('mouseleave', Swal.resumeTimer)
             }
           })
-          
+
           Toast.fire({
             icon: 'error',
             title: 'Something went wrong'
           })
         }
-  
+
       })
     }
 
-    if(this.id != ""){
+    if (this.id != "") {
       // this.api.put("businesses/"+ this.id , data ).subscribe((result:any)=>{
       //   console.log(result);
       //   this.load();
-        
+
       // })
-      this.api.put("businesses/"+ this.id , data ).subscribe((result: any) => {
+      this.api.put("businesses/" + this.id, data).subscribe((result: any) => {
         // console.log(result);
         if (result.status == "success") {
           this.load();
@@ -173,7 +230,7 @@ export class BusinessesComponent implements OnInit {
               toast.addEventListener('mouseleave', Swal.resumeTimer)
             }
           })
-          
+
           Toast.fire({
             icon: 'success',
             title: 'Update successfully'
@@ -192,13 +249,13 @@ export class BusinessesComponent implements OnInit {
               toast.addEventListener('mouseleave', Swal.resumeTimer)
             }
           })
-          
+
           Toast.fire({
             icon: 'error',
             title: 'Something went wrong'
           })
         }
-  
+
       })
     }
 
@@ -233,7 +290,7 @@ export class BusinessesComponent implements OnInit {
             toast.addEventListener('mouseleave', Swal.resumeTimer)
           }
         })
-        
+
         Toast.fire({
           icon: 'success',
           title: 'Delete successfully'

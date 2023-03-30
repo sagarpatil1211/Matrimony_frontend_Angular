@@ -182,10 +182,15 @@
 
               <tbody *ngIf="datas">
                 <tr *ngFor="let data of datas,let i = index" [ngStyle]="{'background-color': data.status ? '#e4f7ea' : '#f7faf8' }">
-                  <td class="d-flex"><button type="button" class="btn btn-info"><i class="bi bi-pencil-square"
-                        (click)="edit(data._id)"></i></button>
-                    <button type="button" class="btn btn-danger ms-2"><i class="bi bi-trash"
-                        (click)="delete(data._id)"></i></button>
+                  <td >
+                   <div class="d-flex">
+                    <button type="button" class="btn btn-info"><i class="bi bi-pencil-square"
+                      (click)="edit(data._id)"></i></button>
+                  <button type="button" class="btn btn-danger ms-2"><i class="bi bi-trash"
+                      (click)="delete(data._id)"></i></button>
+                   </div>
+
+                        <button type="button" class="btn btn-sm btn-success rounded-pill d-block mx-auto mt-2" (click)="sendEmail(data._id)">Send Email</button>
                   </td>
                   <td>{{i+1}}</td>
                   <td>{{data.name}}</td>
