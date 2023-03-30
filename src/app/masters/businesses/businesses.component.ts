@@ -94,7 +94,7 @@ export class BusinessesComponent implements OnInit {
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes!'
+      confirmButtonText: 'Yes !'
     }).then((result) => {
       if (result.isConfirmed) {
 
